@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Text, TextInput, View, Alert } from "react-native";
 import { KeyWeather } from "./utils";
 import styles from "./styles";
 import NormalUi from "../NormalUi/index";
+import AnotherUi from "../AnotherUi/index";
+import { AntDesign } from "@expo/vector-icons";
 
-const ApiCall = () => {
+const ApiCall = (props) => {
   const [name, setCity] = useState("");
   const [temp, setTemp] = useState("");
   const [pressure, setPressure] = useState("");
@@ -12,6 +14,8 @@ const ApiCall = () => {
   const [sunrise, setSunrise] = useState(0);
   const [sunset, setSunset] = useState(0);
   const [desc, setDesc] = useState("");
+
+  const { isFirst } = props;
 
   const getWeather = async (name) => {
     try {
@@ -54,9 +58,38 @@ const ApiCall = () => {
   return (
     <View>
       <Text style={styles.title}> Weather </Text>
-      <TextInput onChangeText={(text) => setCity(text)} />
-      <Button title="Press me" onPress={() => getWeather(name)} />
-      <NormalUi
+
+      <View
+        style={{
+          flexDirection: "row",
+          marginLeft: 30,
+        }}
+      >
+        <AntDesign
+          name="search1"
+          size={24}
+          color="black"
+          style={{
+            marginRight: 20,
+            marginTop: 15,
+          }}
+        />
+        <TextInput
+          placeholder="Podaj miasto"
+          style={styles.input}
+          onChangeText={(text) => setCity(text)}
+        />
+      </View>
+
+      <View style={styles.buttonParent}>
+        <Button
+          style={styles.button}
+          title="Check Weather"
+          onPress={() => getWeather(name)}
+        />
+      </View>
+      <Hello
+        isFirst={isFirst}
         name={name}
         temp={temp}
         pressure={pressure}
@@ -67,6 +100,27 @@ const ApiCall = () => {
       />
     </View>
   );
+};
+
+const Hello = (props) => {
+  const { isFirst, name, temp, pressure, icon, sunrise, sunset, desc } = props;
+  if (isFirst) {
+    return (
+      <NormalUi
+        name={name}
+        temp={temp}
+        pressure={pressure}
+        icon={icon}
+        sunrise={sunrise}
+        sunset={sunset}
+        desc={desc}
+      />
+    );
+  } else {
+    return (
+      <AnotherUi name={name} temp={temp} pressure={pressure} icon={icon} />
+    );
+  }
 };
 
 export default ApiCall;

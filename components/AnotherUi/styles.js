@@ -12,12 +12,13 @@ const styles = StyleSheet.create({
     // textAlignVertical: "center",
     marginTop: 20,
     marginLeft: 70,
-    fontSize: 40,
+    fontSize: 50,
+    fontWeight: "bold",
   },
   temp: {
     marginLeft: 60,
     marginTop: 10,
-    fontSize: 35,
+    fontSize: 40,
   },
   tempAndPress: {
     width: "100%",

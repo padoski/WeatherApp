@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, Image, FlatList } from "react-native";
 import styles from "./styles";
 
-const NormalUi = (props) => {
+const AnotherUi = (props) => {
   const { name, temp, pressure, icon, sunrise, sunset, desc } = props;
   return (
     <View>
@@ -19,7 +19,7 @@ const NormalUi = (props) => {
             uri: `http://openweathermap.org/img/w/${icon}.png`,
           }}
         />
-        <View
+        {/* <View
           style={{
             flexDirection: "row",
           }}
@@ -41,10 +41,10 @@ const NormalUi = (props) => {
         </View>
         <View style={styles.center}>
           <Text style={styles.desc}>{desc}</Text>
-        </View>
+        </View> */}
       </View>
     </View>
   );
 };
 
-export default NormalUi;
+export default AnotherUi;
